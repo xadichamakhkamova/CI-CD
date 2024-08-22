@@ -24,13 +24,13 @@ jobs:
           username: ${{ env.SERVER_USERNAME }}
           key: ${{ env.SSH_PRIVATE_KEY }}
           script: |
-            if [ ! -d "cicd" ]; then
-              mkdir -p cicd
+            if [ ! -d "amaliyot16/cicd/lesson_ci_cd" ]; then
+              mkdir -p amaliyot16/cicd/lesson_ci_cd
             fi
-            cd cicd/lesson_ci_cd/
-            docker compose down
-            docker image rm lesson_ci_cd-cicd_test_project
+            cd amaliyot16/cicd/lesson_ci_cd
+            docker compose down || true
             git pull origin main
-            docker compose up -d --build
+            docker compose up --build -d
+
           script_stop: true
           timeout: 200s
