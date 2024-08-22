@@ -18,7 +18,6 @@ type UrlRes struct {
 	MinioUrl string `json:"minio_url"`
 	URL      string `json:"url"`
 }
-
 type PingResponse struct {
 	Message string `json:"message"`
 }
