@@ -27,7 +27,7 @@ jobs:
             if [ ! -d "cicd" ]; then
               mkdir -p cicd
             fi
-            cd cicd/amaliyot16/
+            cd amaliyot16/
             docker compose down
             git pull origin main
             docker compose up --build -d
