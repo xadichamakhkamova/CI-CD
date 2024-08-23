@@ -9,6 +9,7 @@ import (
 )
 
 func initDB() (*sql.DB, error) {
+	
 	db, err := sql.Open("postgres", "postres://postgres:1@postgres-db:5432/postgres?sslmode=disable")
 	return db, err
 }
