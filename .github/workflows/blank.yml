@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  SERVER_USERNAME: ubuntu
-  SERVER_IP: 52.28.87.185
+  SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+  SERVER_IP: ${{ secrets.SERVER_IP }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:

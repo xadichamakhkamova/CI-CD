@@ -3,14 +3,15 @@ package main
 import (
 	"database/sql"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
 func initDB() (*sql.DB, error) {
-	
-	db, err := sql.Open("postgres", "postres://postgres:1@postgres-db:5432/postgres?sslmode=disable")
+	dsn := os.Getenv("DATABASE_URL")
+	db, err := sql.Open("postgres", dsn)
 	return db, err
 }
 
