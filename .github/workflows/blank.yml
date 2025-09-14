@@ -1,35 +1,36 @@
-name: Build, Push and Deploy Docker Image
+name: CI - Build and Test with Docker
 
 on:
   push:
     branches:
       - main
 
-env:
-  SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-  SERVER_IP: ${{ secrets.SERVER_IP }}
-  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
 jobs:
-  build_push_deploy:
+  build_and_test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Deploy image to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.SERVER_IP }}
-          username: ${{ env.SERVER_USERNAME }}
-          key: ${{ env.SSH_PRIVATE_KEY }}
-          script: |
-            if [ ! -d "cicd" ]; then
-              mkdir -p cicd
-            fi
-            cd amaliyot16/
-            docker compose down
-            git pull origin main
-            docker compose up --build -d
-          script_stop: true
-          timeout: 200s
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: docker build -t ci_cd_app .
+
+      - name: Run services with docker-compose
+        run: docker compose up -d
+
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services..."
+          sleep 15
+          docker ps -a
+
+      - name: Test application endpoint
+        run: |
+          curl --fail http://localhost:50051/ping || exit 1
+
+      - name: Stop containers
+        run: docker compose down

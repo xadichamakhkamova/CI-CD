@@ -36,7 +36,7 @@ func main() {
 	r.GET("/ping", PingHandler)
 	r.POST("/users", Create)
 
-	r.Run("test_cicd:50051")
+	r.Run(":50051")
 }
 
 func Create(c *gin.Context) {
