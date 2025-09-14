@@ -54,7 +54,7 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	query := `INSERT INTO user (id, name, email) VALUES ($1, $2, $3)`
+	query := `INSERT INTO users (id, name, email) VALUES ($1, $2, $3)`
 
 	_, err = db.Exec(query, userRes.ID, userRes.Name, userRes.Email)
 	if err != nil {
