@@ -5,8 +5,6 @@ The main goal is to automatically **build Docker images** and **run tests** when
 
 ---
 
----
-
 ## ⚙️ Technologies
 
 - **Go (Golang)** – backend server  
